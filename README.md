@@ -4,7 +4,7 @@
 
 The project focuses on a real time human detection system using SRF02 ultrasonic sensor and Red Pitaya STEM lab board inside an office environment and thereby activating an LED on red pitaya board if human presence is detected. The system is controlled by an user-friendly graphical user interface built with PyQt6. When turned on, the system scans for human presence twice every second. It has two modes, "Activity Detection" mode, where the sensor scans for sudden changes in the distance between the sensor and floor that can be caused by something/someone coming inside the monitoring zone of the sensor, and "CNN Classify" mode, where a pre-trained PyTorch CNN model is used to detect presence of human for a certain period of time (e.g. 15 seconds). The purpose of using two modes in the system is to promote energy efficiency. A user interface is also provided to the user for adjusting the settings. The picture below shows the FIUS sensor system with SRF02 and red pitaya board.
 
-![Alt Text](https://github.com/anurag-de/myindividualproject/blob/main/assets/gifs/red-pitaya-fius.jpg)
+![Alt Text](https://github.com/anurag-de/myindividualproject/blob/main/assets/pics/red-pitaya-fius.jpg)
 
 In "Activity Detection" mode, when something/someone moves into monitoring zone of the sensor, the LED is turned on as shown below. However, if it is an inanimate object that triggered this mode, the CNN model will detect that it is non-human, so the LED will be turned off. However, the "CNN Classify" mode stays on for 4 times the timeout period, and if still a human is not detected, the system shifts to "Activity Detection" mode. 
 
@@ -16,7 +16,7 @@ Also, in "CNN Classify" mode, if human is detected the LED stays on as shown bel
 
 The picture below shows the LED7 on red-pitaya board that is on when triggered by human presence or sudden changes in monitored environment.
 
-![Alt Text](https://github.com/anurag-de/myindividualproject/blob/main/assets/gifs/led-on.jpg)
+![Alt Text](https://github.com/anurag-de/myindividualproject/blob/main/assets/pics/led-on.jpg)
 
 ## Requirements:
 
