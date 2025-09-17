@@ -1,6 +1,6 @@
 # ==============================================================================
 #
-# Human Presence Detector using FIUS & PyTorch CNN v1.0
+# Human Presence Detector using Red Pitaya board, SRF02 ultrasonicsensor & PyTorch CNN v1.0
 #
 # Author: Anurag
 #
