@@ -6,7 +6,7 @@ The project focuses on a real time human detection system using SRF02 ultrasonic
 
 ![Alt Text](https://github.com/anurag-de/myindividualproject/blob/main/assets/pics/red-pitaya-fius.jpg)
 
-In "Activity Detection" mode, when something/someone moves into monitoring zone of the sensor, the LED is turned on as shown below. However, if it is an inanimate object that triggered this mode, the CNN model will detect that it is non-human, so the LED will be turned off. However, the "CNN Classify" mode stays on for 4 times the timeout period, and if still a human is not detected, the system shifts to "Activity Detection" mode. 
+In "Activity Detection" mode, when something/someone moves into monitoring zone of the sensor, the LED is turned on as shown below. However, if it is an inanimate object that triggered this mode, the CNN model will detect that it is non-human, so the LED will be turned off. If it is human, the LED stays on and shown in the GUI. Also, the "CNN Classify" mode stays on for 4 times the timeout period in human absence, and if still a human is not detected, the system shifts back to "Activity Detection" mode. 
 
 ![Alt Text](https://github.com/anurag-de/myindividualproject/blob/main/assets/gifs/activity-trigger.gif)
 
@@ -33,7 +33,7 @@ pip install pandas tqdm matplotlib seaborn scikit-learn jupyter
 
 ## Dataset used:
 
-The ADC data captured from ultrasonic sensor in csv format using data acquisition software contains 25017 data points, of which the first 5500 is ignored as it contains the sending signal. The dataset that has been used to train and validate the custom PyTorch CNN classification model is hosted on Hugging Face. Links to them are provided below -
+The ADC data captured from ultrasonic sensor in csv format using data acquisition software contains 25017 data points in a signle signal (row), of which the first 5500 is ignored as it contains the sending signal. The dataset that has been used to train and validate the custom PyTorch CNN classification model is hosted on Hugging Face. Links to them are provided below -
 
 - Link to my training data and validation data files hosted in Hugging Face: [Link](https://huggingface.co/datasets/anurag-de/redpitaya-data/tree/main/csvdatafiles)
 - Link to the processed spectrogram files: [Link](https://huggingface.co/datasets/anurag-de/redpitaya-data/tree/main/processednpyfiles)
@@ -57,7 +57,7 @@ In another way, both the preprocessed training and validation datasets were load
 
 - Link to the training jupyter notebook: [Link](https://github.com/anurag-de/myindividualproject/blob/main/src/cnntraining/train(full).ipynb)
 
-We chose the model trained in the second way, which has been tested with a seperate validation dataset. The 2D CNN model used for classification has the following structure: 
+We chose the model trained in the second way, which has been tested with a seperate validation dataset that can be considered to have scenarios close to real world. The 2D CNN model used for classification has the following structure: 
 
 ```python
 SignalCNN2D(
@@ -85,15 +85,66 @@ SignalCNN2D(
 
 The model has total trainable parameters of 4,986,018. 
 
-## GUI & usage instructions:
+## How to run:
 
-To run the monitoring system, run the following:
+Please make sure that the trained model is present inside the folder "myfullmodel", and folder structure should be as follows:
 
-```python
-python ui.py  
+```
+gui/
+├── 📂 myfullmodel/
+│   └── 📄 best_model.pth
+├── 📂 ui/
+│   ├── 📄 __init__.py
+│   ├── 📄 ui_layout.py
+│   └── 📄 ui_main_window.py
+├── 📄 app_state.py
+├── 📄 config.py
+├── 📄 main.py
+├── 📄 ml_model.py
+├── 📄 sensor_comm.py
+└── 📄 workers.py
 ```
 
-Please make sure that the trained model should be present in the folder "myfullmodel", and that folder should be in the same directory as "ui.py".
+To run the monitoring system, 
+
+- Clone this project:
+
+```shell
+git clone https://github.com/anurag-de/myindividualproject.git
+```
+
+- Navigate to the project directory:
+
+```shell
+cd src/gui
+```
+
+- Create a virtual environment folder:
+
+```shell
+python3 -m venv venv
+```
+
+- Activate the environment:
+
+```shell
+source venv/bin/activate
+```
+
+This is for MacOS/Linux. For Windows, it should be **"venv\Scripts\activate"**.
+
+- Install required packages:
+
+```shell
+pip install -r requirements.txt
+```
+
+- Run the script:
+
+```shell
+python main.py
+```
+## GUI 
 
 Once the system starts, the graphical user interface looks something like this:
 
@@ -137,8 +188,3 @@ However in "CNN Classify" mode, if any human presence is detected, it is shown i
 ![Alt text](https://github.com/anurag-de/myindividualproject/blob/main/assets/pics/human-detected.png)
 
 Once the "Start Sensor" is pressed, the application always plots the raw ADC signal in real-time using pyqtgraph for immediate visual feedback, until the "Stop Sensor" is pressed. 
-
-
-
-
-
