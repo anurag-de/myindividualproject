@@ -65,8 +65,6 @@ We chose the model trained in the second way, which has been tested with a seper
 
 ![Alt Text](https://github.com/anurag-de/myindividualproject/blob/main/assets/pics/model-architecture.png)
 
-The model has total trainable parameters of 4,986,018. 
-
 ## How to run:
 
 Please make sure that the trained model is present inside the folder "myfullmodel", and folder structure should be as follows:
