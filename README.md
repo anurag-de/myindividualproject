@@ -44,7 +44,11 @@ Training data have 60000 human and 60000 non-human data points (Total: 120000 da
 
 ## Model training:
 
-For model training, in the beginning, csv files from training data and validation data were preprocessed by ignoring the first 5500 data points and then converting them into spectrogram using STFT. Basically we are converting 1D signal into 2D spectrogram to capture signal's frequency over time. The resulting spectrograms and their corresponding labels were save as numpy files. 
+For model training, in the beginning, csv files from training data and validation data were preprocessed by ignoring the first 5500 data points and then converting them into spectrogram using STFT. Basically we are converting 1D signal into 2D spectrogram to capture signal's frequency over time. Visually, the spectrogram from human and non-human samples look something like this:
+
+![Alt Text](https://github.com/anurag-de/myindividualproject/blob/main/assets/pics/spectrogram.png)
+
+The resulting spectrograms and their corresponding labels were save as numpy files. 
 
 - Link to preprocessing jupyter notebook for training data: [Link](https://github.com/anurag-de/myindividualproject/blob/main/src/cnntraining/preprocess.ipynb)
 - Link to preprocessing jupyter notebook for validation data: [Link](https://github.com/anurag-de/myindividualproject/blob/main/src/cnntraining/preprocess-validation-data.ipynb)
@@ -59,29 +63,7 @@ In another way, both the preprocessed training and validation datasets were load
 
 We chose the model trained in the second way, which has been tested with a seperate validation dataset that can be considered to have scenarios close to real world. The 2D CNN model used for classification has the following structure: 
 
-```python
-SignalCNN2D(
-  (conv_block1): Sequential(
-    (0): Conv2d(1, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-    (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (2): ReLU()
-    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
-  )
-  (conv_block2): Sequential(
-    (0): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
-    (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (2): ReLU()
-    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
-  )
-  (fc_block): Sequential(
-    (0): Linear(in_features=38912, out_features=128, bias=True)
-    (1): ReLU()
-    (2): Dropout(p=0.5, inplace=False)
-    (3): Linear(in_features=128, out_features=2, bias=True)
-  )
-)
-
-```
+![Alt Text](https://github.com/anurag-de/myindividualproject/blob/main/assets/pics/model-architecture.png)
 
 The model has total trainable parameters of 4,986,018. 
 
